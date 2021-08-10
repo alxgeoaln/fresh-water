@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>25 - Shader patterns</title>
+</head>
+
+<body>
+  <script src="./blotter.min.js"></script>
+  <script src="./liquidDistortMaterial.js"></script>
+  <canvas class="webgl"></canvas>
+
+  <script>
+    var text = new Blotter.Text("Hello, I'm Alin", {
+      family: "'Helvetica',sans-serif",
+      weight: 900,
+      size: 100,
+      paddingLeft: 100,
+      paddingRight: 100,
+      paddingTop: 100,
+      paddingBottom: 100,
+      fill: 'white'
+    });
+
+    var text1 = new Blotter.Text("a frontend developer looking for thigs to build", {
+      family: "'Helvetica',sans-serif",
+      size: 40,
+      fill: "#ffffff",
+      paddingLeft: 100,
+      paddingRight: 100,
+      paddingTop: 100,
+      paddingBottom: 100,
+      fill: 'white'
+    });
+
+
+
+    var material = new Blotter.LiquidDistortMaterial();
+    material.uniforms.uSpeed.value = .4;
+    material.uniforms.uVolatility.value = .03;
+
+    var blotter = new Blotter(material, { texts: text });
+    var blotter1 = new Blotter(material, { texts: text1 });
+
+    var scope = blotter.forText(text);
+    var scope1 = blotter1.forText(text1);
+
+    scope1.appendTo(document.body);
+    scope.appendTo(document.body);
+
+    const texts = document.getElementsByClassName('b-canvas');
+    const firstText = text[0];
+    console.log('firstText', texts[0]);
+    texts[0].style = 'top: 60%;'
+  </script>
+</body>
+
+</html>
