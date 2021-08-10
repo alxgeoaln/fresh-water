@@ -8,7 +8,6 @@ import testFragmentShader from './shaders/test/fragment.glsl'
 import fragmentShader from './shaders/distrotion/fragment.glsl';
 import vertexShader from './shaders/distrotion/vertex.glsl';
 
-
 /**
  * Base
  */
@@ -16,7 +15,7 @@ import vertexShader from './shaders/distrotion/vertex.glsl';
 
 const settings = {
     speed: 0.2,
-    density: 5,
+    density: 10,
     strength: 0.05,
     frequency: 3.0,
     amplitude: 8.0,
@@ -112,7 +111,7 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-camera.position.set(0, 0, 1.7)
+camera.position.set(0, 0, 2)
 scene.add(camera)
 
 raycaster.setFromCamera(mouse, camera);
@@ -141,8 +140,11 @@ const renderer = new THREE.WebGLRenderer({
     antialias: false,
     canvas: canvas
 })
+renderer.setClearColor(0x9EC9E2, 1)
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+
 
 const clock = new THREE.Clock();
 
