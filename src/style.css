@@ -7,8 +7,9 @@
 html,
 body
 {
-    overflow: hidden;
+    /* overflow: hidden; */
     background-color: #9EC9E2;
+    height: 10000px;
 }
 
 .webgl
@@ -21,9 +22,20 @@ body
 }
 
 .b-canvas {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 

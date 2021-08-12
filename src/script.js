@@ -1,6 +1,5 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import testVertexShader from './shaders/test/vertex.glsl'
 import testFragmentShader from './shaders/test/fragment.glsl'
@@ -14,8 +13,6 @@ import gsap from 'gsap';
  * Base
  */
 // Debug
-
-
 
 // Intro txt
 function isMobile() {
@@ -80,14 +77,14 @@ const settings = {
 
 import archer from '../static/archer.png';
 
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
-const freshWaterControls = gui.addFolder('freshWaterControls');
-freshWaterControls.add(settings, 'speed', 0, 10, 0.1)
-freshWaterControls.add(settings, 'density', 0, 10, 0.1)
-freshWaterControls.add(settings, 'strength', 0, 10, 0.01)
-freshWaterControls.add(settings, 'frequency', 0, 10, 0.1);
-freshWaterControls.add(settings, 'amplitude', 0, 10, 0.1);
+// const freshWaterControls = gui.addFolder('freshWaterControls');
+// freshWaterControls.add(settings, 'speed', 0, 10, 0.1)
+// freshWaterControls.add(settings, 'density', 0, 10, 0.1)
+// freshWaterControls.add(settings, 'strength', 0, 10, 0.01)
+// freshWaterControls.add(settings, 'frequency', 0, 10, 0.1);
+// freshWaterControls.add(settings, 'amplitude', 0, 10, 0.1);
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -215,40 +212,23 @@ const scroll = (direction, cameraIncrement) => {
         }
     }
 }
+var lastScrollTop = 0;
+window.addEventListener("scroll", function () { // or window.addEventListener("scroll"....
 
-window.addEventListener('wheel', () => {
-    // console.log('cameraPosition', camera.position);
+    var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
 
-    if (event.deltaY < 0) {
-        scroll('down', .1);
+    if(st === 0) {
+        camera.position.y = 0;
     }
-    else if (event.deltaY > 0) {
-        scroll('up', .1);
-    }
-})
-
-const mc = new Hammer(canvas);
-
-mc.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-})
-
-mc.on("panup", ev => {
-    const { pointerType } = ev;
-
-    if (pointerType === "touch") {
+    if (st > lastScrollTop) {
+        // downscroll code
         scroll('up', .3);
-    }
-})
-
-mc.on("pandown", ev => {
-    const { pointerType } = ev;
-
-    if (pointerType === "touch") {
+    } else {
+        // upscroll code
         scroll('down', .3);
     }
-})
-
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}, false);
 
 const clock = new THREE.Clock();
 
